@@ -36,14 +36,17 @@ namespace Timer
         private void StartButton_Click(object sender, EventArgs e)
         {
             entity.startDate = DateTime.Now;
+            StartButton.Enabled = false;
             StopWorkButton.Enabled = true;
-            
+            PauseButton.Enabled = true;
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
             entity.Pause();
             ResultLable.Text = entity.timeSpan.ToString("hh':'mm':'ss");
+            PauseButton.Enabled = false;
+            StartButton.Enabled = true;
         }
 
         private void StopWorkButton_Click(object sender, EventArgs e)
