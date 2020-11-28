@@ -9,13 +9,15 @@ namespace Timer
 {
     class TxtWriter
     {
+        private const string Path = @"..\..\logs.txt";
+
         public static void Writer(TimeSpan timeSpan)
         {
             var today = new DateTime();
             today = DateTime.Now;
             var todayString = today.ToShortDateString();
             var timeSpanString = timeSpan.ToString("hh':'mm':'ss");
-            var write = new StreamWriter(@"C:\Users\User\Source\Repos\Rizhiy825\Timer\Timer\Logs.txt", true);
+            var write = new StreamWriter(Path, true);
             write.Write(todayString + " ");
             write.WriteLine(timeSpanString);
             write.Close();
@@ -23,7 +25,7 @@ namespace Timer
 
         public static DateTime Reader(DateTime selectedDate)
         {
-            var write = new StreamReader(@"C:\Users\User\Source\Repos\Rizhiy825\Timer\Timer\Logs.txt");
+            var write = new StreamReader(Path);
             string line;
             var resultTime = new DateTime();
 
@@ -46,7 +48,7 @@ namespace Timer
 
         public static List<DateTime> Checker()
         {
-            var write = new StreamReader(@"C:\Users\User\Source\Repos\Rizhiy825\Timer\Timer\Logs.txt");
+            var write = new StreamReader(Path);
             string line;
             List<DateTime> dates = new List<DateTime>();
             DateTime parsetDate = new DateTime();

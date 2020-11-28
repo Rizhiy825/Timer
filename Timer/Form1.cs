@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Timer
 {
@@ -14,11 +16,19 @@ namespace Timer
     public partial class Form1 : Form
     {
 
-        public DateTime selectedDate { get; set; }
-        Entity entity = new Entity(DateTime.Now);
+        private DateTime selectedDate { get; set; }
+        private DateTime startDate;
+        private Stopwatch stopwatch = new Stopwatch();
+        private bool running = true;
+        private List<Entity> entities = new List<Entity>();
+
         public Form1()
         {
             InitializeComponent();
+        }
+       
+        private void Form1_Load(object sender, EventArgs e)
+        {
             StopWorkButton.Enabled = false;
             var dateList = TxtWriter.Checker();
 
@@ -26,16 +36,37 @@ namespace Timer
             {
                 Calendar.AddBoldedDate(date);
             }
-        }
-       
 
-        private void Form1_Load(object sender, EventArgs e)
+            Task.Factory.StartNew(async () =>
+            {
+                while (running)
+                {
+                    if (stopwatch.Running)
+                    {
+                        ResultLabel.Invoke((MethodInvoker)delegate
+                        {
+                            ResultLabel.Text = stopwatch.Elapsed.ToString("hh':'mm':'ss");
+                        });
+
+                        await Task.Delay(50);
+                    }
+                    else
+                    {
+                        await Task.Delay(500);
+                    }
+                }
+            });
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            running = false;
         }
+
         private void StartButton_Click(object sender, EventArgs e)
         {
-            entity.startDate = DateTime.Now;
+            stopwatch.Start();
+            startDate = DateTime.Now;
             StartButton.Enabled = false;
             StopWorkButton.Enabled = true;
             PauseButton.Enabled = true;
@@ -43,19 +74,27 @@ namespace Timer
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
-            entity.Pause();
-            ResultLable.Text = entity.timeSpan.ToString("hh':'mm':'ss");
+            stopwatch.Pause();
+            // entity.Pause();
+            // ResultLabel.Text = entity.timeSpan.ToString("hh':'mm':'ss");
             PauseButton.Enabled = false;
             StartButton.Enabled = true;
         }
 
         private void StopWorkButton_Click(object sender, EventArgs e)
         {
-            entity.Stop();
-            ResultLable.Text = entity.timeSpan.ToString("hh':'mm':'ss");
-            entity.timeSpan = TimeSpan.Zero;
+            stopwatch.Pause();
+
+            var stopDate = DateTime.Now;
+            var elapsed = stopwatch.Elapsed;
+
+            entities.Add(new Entity(startDate, stopDate, stopwatch.Elapsed));
+            Write();
+
             StopWorkButton.Enabled = false;
-            Calendar.AddBoldedDate(entity.stopDate);
+            Calendar.AddBoldedDate(stopDate);
+
+            stopwatch.Reset();
         }
 
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
@@ -65,5 +104,14 @@ namespace Timer
             DateSelectedLabel.Text = selectedDate.ToString("HH':'mm':'ss");
         }
 
+        private void Write()
+        {
+            var xml = new XmlSerializer(typeof(List<Entity>));
+
+            using (var fs = new FileStream("Logs.xml", FileMode.OpenOrCreate))
+            {
+                xml.Serialize(fs, entities);
+            }
+        }
     }
 }
