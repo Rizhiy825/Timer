@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ResultLable = new System.Windows.Forms.Label();
+            this.ResultLabel = new System.Windows.Forms.Label();
             this.StopWorkButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.DateSelectedLabel = new System.Windows.Forms.Label();
@@ -39,14 +39,14 @@
             // 
             // ResultLable
             // 
-            this.ResultLable.AutoSize = true;
-            this.ResultLable.Font = new System.Drawing.Font("Times New Roman", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ResultLable.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.ResultLable.Location = new System.Drawing.Point(87, 26);
-            this.ResultLable.Name = "ResultLable";
-            this.ResultLable.Size = new System.Drawing.Size(255, 57);
-            this.ResultLable.TabIndex = 0;
-            this.ResultLable.Text = "Жми старт";
+            this.ResultLabel.AutoSize = true;
+            this.ResultLabel.Font = new System.Drawing.Font("Times New Roman", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.ResultLabel.Location = new System.Drawing.Point(87, 26);
+            this.ResultLabel.Name = "ResultLable";
+            this.ResultLabel.Size = new System.Drawing.Size(255, 57);
+            this.ResultLabel.TabIndex = 0;
+            this.ResultLabel.Text = "Жми старт";
             // 
             // StopWorkButton
             // 
@@ -129,9 +129,10 @@
             this.Controls.Add(this.DateSelectedLabel);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.StopWorkButton);
-            this.Controls.Add(this.ResultLable);
+            this.Controls.Add(this.ResultLabel);
             this.Name = "Form1";
             this.Text = "Work timer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,7 +141,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label ResultLable;
+        private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.Button StopWorkButton;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Label DateSelectedLabel;

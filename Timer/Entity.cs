@@ -6,33 +6,23 @@ using System.Threading.Tasks;
 
 namespace Timer
 {
-    class Entity
+    [Serializable]
+    public class Entity
     {
         public DateTime startDate { get; set; }
-        public DateTime stopDate { get; private set; }
-        public DateTime pauseDate { get; private set; }
+        public DateTime stopDate { get; set; }
         public TimeSpan timeSpan { get; set; }
         
-        public Entity (DateTime start)
+        public Entity()
+        {
+
+        }
+
+        public Entity(DateTime start, DateTime stop, TimeSpan span)
         {
             startDate = start;
-            pauseDate = start;
+            stopDate = stop;
+            timeSpan = span;
         }
-
-        public void Pause()
-        {
-            stopDate = DateTime.Now;
-            timeSpan += stopDate.Subtract(startDate);
-        }
-
-        public void Stop()
-        {
-            stopDate = DateTime.Now;
-            timeSpan += stopDate.Subtract(startDate);
-            TxtWriter.Writer(timeSpan);
-            
-        }
-
-
     }
 }
