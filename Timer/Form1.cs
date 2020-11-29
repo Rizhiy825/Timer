@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Timer
 {
-    
+
     public partial class Form1 : Form
     {
 
@@ -21,13 +21,13 @@ namespace Timer
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
         private List<Entity> entities = new List<Entity>();
-        private ActiveWindow aw = new ActiveWindow(ForegroundWindowChanged, ActiveWindow.EVENT_SYSTEM_FOREGROUND);
+        private ActiveWindow aw;
 
         public Form1()
         {
             InitializeComponent();
         }
-       
+
         private void Form1_Load(object sender, EventArgs e)
         {
             StopWorkButton.Enabled = false;
@@ -57,11 +57,14 @@ namespace Timer
                     }
                 }
             });
+
+            aw = new ActiveWindow(ForegroundChanged);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
+            aw.Stop();
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -115,16 +118,9 @@ namespace Timer
             }
         }
 
-        private static void ForegroundWindowChanged(
-            uint eventMin, 
-            uint eventMax, 
-            IntPtr hmodWinEventProc,
-            ActiveWindow.WinEventDelegate lpfnWinEventProc,
-            uint idProcess,
-            uint idThread,
-            uint dwFlags)
+        private void ForegroundChanged(string name)
         {
-
+            ActiveWindowLabel.Text = name;
         }
     }
 }

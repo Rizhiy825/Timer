@@ -18,30 +18,52 @@ namespace Timer
         [DllImport("user32.dll")]
         private static extern bool UnhookWinEvent(IntPtr hWinEventHook);
 
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetWindowTextLength(IntPtr hWnd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder title, int size);
+
         public delegate void WinEventDelegate(
                 IntPtr hWinEventHook, uint eventType,
                 IntPtr hWnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
+        public delegate void OnForegroundChanedHandler(string name);
+
+        public event OnForegroundChanedHandler OnForegroundChanged;
+
         public const uint EVENT_SYSTEM_FOREGROUND = 3;
         public const uint WINEVENT_OUTOFCONTEXT = 0;
-        // public const uint EVENT_OBJECT_CREATE = 0x8000;
+        public const uint Event = EVENT_SYSTEM_FOREGROUND;
 
-        readonly WinEventDelegate _procDelegate;
         readonly IntPtr _hWinEventHook;
 
-        public ActiveWindow(WinEventDelegate handler, uint eventMin, uint eventMax)
+        public ActiveWindow(OnForegroundChanedHandler handler)
         {
-            _procDelegate = handler;
-            _hWinEventHook = SetWinEventHook(eventMin, eventMax, IntPtr.Zero, handler, 0, 0, WINEVENT_OUTOFCONTEXT);
-        }
-
-        public ActiveWindow(WinEventDelegate handler, uint eventMin)
-              : this(handler, eventMin, eventMin)
-        {
+            OnForegroundChanged += handler;
+            _hWinEventHook = SetWinEventHook(Event, Event, IntPtr.Zero, Handler, 0, 0, WINEVENT_OUTOFCONTEXT);
         }
 
         public void Stop()
         {
             UnhookWinEvent(_hWinEventHook);
+        }
+
+        private void Handler(
+            IntPtr hWinEventHook,
+            uint eventType,
+            IntPtr hWnd,
+            int idObject,
+            int idChild,
+            uint dwEventThread,
+            uint dwmsEventTime)
+        {
+            var length = GetWindowTextLength(hWnd);
+
+            var sb = new StringBuilder();
+            sb.Length = length + 1;
+            GetWindowText(hWnd, sb, length + 1);
+
+            OnForegroundChanged(sb.ToString());
         }
 
         // Usage Example for EVENT_OBJECT_CREATE (http://msdn.microsoft.com/en-us/library/windows/desktop/dd318066%28v=vs.85%29.aspx)
