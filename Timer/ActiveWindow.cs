@@ -10,12 +10,20 @@ namespace Timer
 {
     class ActiveWindow
     {
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetWinEventHook(
+              uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc,
+              uint idProcess, uint idThread, uint dwFlags);
+
+        [DllImport("user32.dll")]
+        private static extern bool UnhookWinEvent(IntPtr hWinEventHook);
+
         public delegate void WinEventDelegate(
                 IntPtr hWinEventHook, uint eventType,
                 IntPtr hWnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
         public const uint EVENT_SYSTEM_FOREGROUND = 3;
         public const uint WINEVENT_OUTOFCONTEXT = 0;
-        public const uint EVENT_OBJECT_CREATE = 0x8000;
+        // public const uint EVENT_OBJECT_CREATE = 0x8000;
 
         readonly WinEventDelegate _procDelegate;
         readonly IntPtr _hWinEventHook;
@@ -31,13 +39,6 @@ namespace Timer
         {
         }
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SetWinEventHook(
-              uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc,
-              uint idProcess, uint idThread, uint dwFlags);
-
-        [DllImport("user32.dll")]
-        public static extern bool UnhookWinEvent(IntPtr hWinEventHook);
         public void Stop()
         {
             UnhookWinEvent(_hWinEventHook);
@@ -50,7 +51,6 @@ namespace Timer
         //    if (!Win32.GetClassName(hWnd).StartsWith("ClassICareAbout"))
         //        return;
         // Note - in Console program, doesn't fire if you have a Console.ReadLine active, so use a Form
-
     }
 
 }

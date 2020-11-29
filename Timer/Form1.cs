@@ -21,6 +21,7 @@ namespace Timer
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
         private List<Entity> entities = new List<Entity>();
+        private ActiveWindow aw = new ActiveWindow(ForegroundWindowChanged, ActiveWindow.EVENT_SYSTEM_FOREGROUND);
 
         public Form1()
         {
@@ -112,6 +113,18 @@ namespace Timer
             {
                 xml.Serialize(fs, entities);
             }
+        }
+
+        private static void ForegroundWindowChanged(
+            uint eventMin, 
+            uint eventMax, 
+            IntPtr hmodWinEventProc,
+            ActiveWindow.WinEventDelegate lpfnWinEventProc,
+            uint idProcess,
+            uint idThread,
+            uint dwFlags)
+        {
+
         }
     }
 }
