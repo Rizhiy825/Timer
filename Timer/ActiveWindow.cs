@@ -43,11 +43,13 @@ namespace Timer
         public const uint Event = EVENT_SYSTEM_FOREGROUND;
 
         readonly IntPtr _hWinEventHook;
+        private readonly WinEventDelegate _handler;
         
         public ActiveWindow(OnForegroundChanedHandler handler)
         {
             OnForegroundChanged += handler;
-            _hWinEventHook = SetWinEventHook(Event, Event, IntPtr.Zero, Handler, 0, 0, WINEVENT_OUTOFCONTEXT);
+            _handler = Handler;
+            _hWinEventHook = SetWinEventHook(Event, Event, IntPtr.Zero, _handler, 0, 0, WINEVENT_OUTOFCONTEXT);
         }
 
         public void Stop()
