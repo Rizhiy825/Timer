@@ -22,6 +22,8 @@ namespace Timer
         private bool running = true;
         private List<Entity> entities = new List<Entity>();
         private ActiveWindow aw;
+        private string programName;
+        private Entity entity = new Entity(); 
 
         public Form1()
         {
@@ -31,12 +33,6 @@ namespace Timer
         private void Form1_Load(object sender, EventArgs e)
         {
             StopWorkButton.Enabled = false;
-            var dateList = TxtWriter.Checker();
-
-            foreach (var date in dateList)
-            {
-                Calendar.AddBoldedDate(date);
-            }
 
             Task.Factory.StartNew(async () =>
             {
@@ -71,6 +67,9 @@ namespace Timer
         {
             stopwatch.Start();
             startDate = DateTime.Now;
+            entity.startDate = startDate;
+            entity.programName = programName;
+
             StartButton.Enabled = false;
             StopWorkButton.Enabled = true;
             PauseButton.Enabled = true;
@@ -91,8 +90,9 @@ namespace Timer
 
             var stopDate = DateTime.Now;
             var elapsed = stopwatch.Elapsed;
-
-            entities.Add(new Entity(startDate, stopDate, stopwatch.Elapsed));
+            entity.timeSpan = stopwatch.Elapsed;
+            entity.stopDate = DateTime.Now;
+            entities.Add(entity);
             Write();
 
             StopWorkButton.Enabled = false;
@@ -116,11 +116,21 @@ namespace Timer
             {
                 xml.Serialize(fs, entities);
             }
+            entity.startDate = DateTime.MinValue;
+            entity.stopDate = DateTime.MinValue;
+            entity.timeSpan = TimeSpan.Zero;
         }
+
 
         private void ForegroundChanged(string name)
         {
-            ActiveWindowLabel.Text = name;
+            programName = name;
+            
+            if (stopwatch.Running == true)
+            {
+                ActiveWindowLabel.Text = programName;
+
+            }
         }
     }
 }
