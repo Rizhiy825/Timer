@@ -12,17 +12,19 @@ namespace Timer
         public DateTime startDate { get; set; }
         public DateTime stopDate { get; set; }
         public TimeSpan timeSpan { get; set; }
+        public string programName { get; set; }
         
         public Entity()
         {
 
         }
 
-        public Entity(DateTime start, DateTime stop, TimeSpan span)
+        public Entity(DateTime start, DateTime stop, TimeSpan span, string progName)
         {
             startDate = start;
             stopDate = stop;
             timeSpan = span;
+            programName = progName;
         }
     }
 }
