@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Timer
 {
-    
+
     public partial class Form1 : Form
     {
 
@@ -21,22 +21,18 @@ namespace Timer
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
         private List<Entity> entities = new List<Entity>();
-        private ActiveWindow aw = new ActiveWindow(ForegroundWindowChanged, ActiveWindow.EVENT_SYSTEM_FOREGROUND);
+        private ActiveWindow aw;
+        private string programName;
+        private Entity entity = new Entity(); 
 
         public Form1()
         {
             InitializeComponent();
         }
-       
+
         private void Form1_Load(object sender, EventArgs e)
         {
             StopWorkButton.Enabled = false;
-            var dateList = TxtWriter.Checker();
-
-            foreach (var date in dateList)
-            {
-                Calendar.AddBoldedDate(date);
-            }
 
             Task.Factory.StartNew(async () =>
             {
@@ -57,17 +53,23 @@ namespace Timer
                     }
                 }
             });
+
+            aw = new ActiveWindow(ForegroundChanged);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
+            aw.Stop();
         }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
             stopwatch.Start();
             startDate = DateTime.Now;
+            entity.startDate = startDate;
+            entity.programName = programName;
+
             StartButton.Enabled = false;
             StopWorkButton.Enabled = true;
             PauseButton.Enabled = true;
@@ -88,8 +90,9 @@ namespace Timer
 
             var stopDate = DateTime.Now;
             var elapsed = stopwatch.Elapsed;
-
-            entities.Add(new Entity(startDate, stopDate, stopwatch.Elapsed));
+            entity.timeSpan = stopwatch.Elapsed;
+            entity.stopDate = DateTime.Now;
+            entities.Add(entity);
             Write();
 
             StopWorkButton.Enabled = false;
@@ -113,18 +116,21 @@ namespace Timer
             {
                 xml.Serialize(fs, entities);
             }
+            entity.startDate = DateTime.MinValue;
+            entity.stopDate = DateTime.MinValue;
+            entity.timeSpan = TimeSpan.Zero;
         }
 
-        private static void ForegroundWindowChanged(
-            uint eventMin, 
-            uint eventMax, 
-            IntPtr hmodWinEventProc,
-            ActiveWindow.WinEventDelegate lpfnWinEventProc,
-            uint idProcess,
-            uint idThread,
-            uint dwFlags)
-        {
 
+        private void ForegroundChanged(string name)
+        {
+            programName = name;
+            
+            if (stopwatch.Running == true)
+            {
+                ActiveWindowLabel.Text = programName;
+
+            }
         }
     }
 }
