@@ -23,7 +23,7 @@ namespace Timer
         private List<Entity> entities = new List<Entity>();
         private ActiveWindow aw;
         private string programName;
-        private Entity entity = new Entity(); 
+        private Entity entity = new Entity();
 
         public Form1()
         {
@@ -125,11 +125,13 @@ namespace Timer
         private void ForegroundChanged(string name)
         {
             programName = name;
-            
+
             if (stopwatch.Running == true)
             {
-                ActiveWindowLabel.Text = programName;
-
+                ActiveWindowLabel.Invoke((MethodInvoker)delegate
+                {
+                    ActiveWindowLabel.Text = programName;
+                });
             }
         }
     }
