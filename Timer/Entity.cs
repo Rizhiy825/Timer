@@ -9,9 +9,8 @@ namespace Timer
     [Serializable]
     public class Entity
     {
-        public DateTime startDate { get; set; }
         public DateTime stopDate { get; set; }
-        public TimeSpan timeSpan { get; set; }
+        public long timeSpanTicks { get; set; }
         public string programName { get; set; }
         
         public Entity()
@@ -19,12 +18,19 @@ namespace Timer
 
         }
 
-        public Entity(DateTime start, DateTime stop, TimeSpan span, string progName)
+        public Entity(DateTime stop, long span, string progName)
         {
-            startDate = start;
             stopDate = stop;
-            timeSpan = span;
+            timeSpanTicks = span;
             programName = progName;
+        }
+
+        public void Clean()
+        {
+            stopDate = DateTime.MinValue;
+            timeSpanTicks = 0;
+
+
         }
     }
 }

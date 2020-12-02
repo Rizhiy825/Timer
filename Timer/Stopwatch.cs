@@ -22,10 +22,15 @@ namespace Timer
                     return elapsed;
                 }
             }
+            private set
+            {
+
+            }
         }
 
         private DateTime startTime;
         private TimeSpan elapsed;
+        public TimeSpan programElapsed { get; private set; }
 
         public Stopwatch()
         {
@@ -42,6 +47,7 @@ namespace Timer
         {
             Running = false;
             elapsed += SinceLastStart();
+            programElapsed += SinceLastStart();
         }
 
         public void Reset()
@@ -49,6 +55,12 @@ namespace Timer
             Running = false;
             startTime = new DateTime();
             elapsed = TimeSpan.Zero;
+            programElapsed = TimeSpan.Zero;
+        }
+
+        public void ResetProgramElapsed()
+        {
+            programElapsed = TimeSpan.Zero;
         }
 
         private TimeSpan SinceLastStart()

@@ -18,12 +18,6 @@ namespace Timer
 
         [DllImport("user32.dll")]
         private static extern bool UnhookWinEvent(IntPtr hWinEventHook);
-
-        /*[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern int GetWindowTextLength(IntPtr hWnd);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder title, int size);*/
         
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
@@ -72,14 +66,6 @@ namespace Timer
             Process p = Process.GetProcessById((int)pid);
             string processName = p.ProcessName;
             OnForegroundChanged(processName);
-            /*var length = GetWindowTextLength(hWnd);
-
-            var sb = new StringBuilder();
-            sb.Length = length + 1;
-            GetWindowText(hWnd, sb, length + 1);
-
-            OnForegroundChanged(sb.ToString());
-            */
 
         }
 

@@ -15,15 +15,11 @@ namespace Timer
 
     public partial class Form1 : Form
     {
-
-        private DateTime selectedDate { get; set; }
-        private DateTime startDate;
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
         private List<Entity> entities = new List<Entity>();
         private ActiveWindow aw;
         private string programName;
-        private Entity entity = new Entity();
 
         public Form1()
         {
@@ -32,6 +28,10 @@ namespace Timer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Serializer lastSession = new Serializer(entities);
+            lastSession.Read();
+
+
             StopWorkButton.Enabled = false;
 
             Task.Factory.StartNew(async () =>
@@ -59,6 +59,9 @@ namespace Timer
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Serializer lastSession = new Serializer(entities);
+            lastSession.Write();
+            
             running = false;
             aw.Stop();
         }
@@ -66,10 +69,6 @@ namespace Timer
         private void StartButton_Click(object sender, EventArgs e)
         {
             stopwatch.Start();
-            startDate = DateTime.Now;
-            entity.startDate = startDate;
-            entity.programName = programName;
-
             StartButton.Enabled = false;
             StopWorkButton.Enabled = true;
             PauseButton.Enabled = true;
@@ -78,25 +77,23 @@ namespace Timer
         private void PauseButton_Click(object sender, EventArgs e)
         {
             stopwatch.Pause();
-            // entity.Pause();
-            // ResultLabel.Text = entity.timeSpan.ToString("hh':'mm':'ss");
             PauseButton.Enabled = false;
             StartButton.Enabled = true;
+            StopWorkButton.Enabled = true;
         }
 
         private void StopWorkButton_Click(object sender, EventArgs e)
         {
             stopwatch.Pause();
-
-            var stopDate = DateTime.Now;
-            var elapsed = stopwatch.Elapsed;
-            entity.timeSpan = stopwatch.Elapsed;
+            var entity = new Entity();
             entity.stopDate = DateTime.Now;
+            entity.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
+            entity.programName = programName;
             entities.Add(entity);
-            Write();
 
             StopWorkButton.Enabled = false;
-            Calendar.AddBoldedDate(stopDate);
+            PauseButton.Enabled = false;
+            StartButton.Enabled = true;
 
             stopwatch.Reset();
         }
@@ -104,21 +101,7 @@ namespace Timer
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
             var selectedDate = Calendar.SelectionStart.Date;
-            selectedDate = TxtWriter.Reader(selectedDate);
             DateSelectedLabel.Text = selectedDate.ToString("HH':'mm':'ss");
-        }
-
-        private void Write()
-        {
-            var xml = new XmlSerializer(typeof(List<Entity>));
-
-            using (var fs = new FileStream("Logs.xml", FileMode.OpenOrCreate))
-            {
-                xml.Serialize(fs, entities);
-            }
-            entity.startDate = DateTime.MinValue;
-            entity.stopDate = DateTime.MinValue;
-            entity.timeSpan = TimeSpan.Zero;
         }
 
 
@@ -128,10 +111,21 @@ namespace Timer
 
             if (stopwatch.Running == true)
             {
+                stopwatch.Pause();
+                var entity = new Entity();
+                entity.stopDate = DateTime.Now;
+                entity.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
+                entity.programName = name;
+                entities.Add(entity);
+                stopwatch.ResetProgramElapsed();
+                stopwatch.Start();
+
                 ActiveWindowLabel.Invoke((MethodInvoker)delegate
                 {
                     ActiveWindowLabel.Text = programName;
                 });
+                
+
             }
         }
     }
