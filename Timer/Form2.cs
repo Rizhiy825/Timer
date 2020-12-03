@@ -30,10 +30,36 @@ namespace Timer
 
             Calendar.BoldedDates = dates;
         }
+        private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            SelectionRange selectedRange = Calendar.SelectionRange;   /*.ToString("dd''.''MM''.''yyyy");*/
+            List<DateTime> datesList = new List<DateTime>();
+            TimeSpan datesDif = selectedRange.End - selectedRange.Start;
+           
+            datesList.Add(selectedRange.Start);
+
+            for (int i = 0; i < datesDif.Days; i++)
+            {
+                datesList.Add(selectedRange.Start.AddDays(1));
+            }
+
+            var serializer = new Serializer();
+            serializer.selectedDates = datesList;
+            serializer.Read();
+
+            foreach (var entity in serializer.readedEntities)
+            {
+                Table.Rows.Add(entity.stopDate.ToString("dd''.''MM''.'yyyy"),
+                    entity.programName, 
+                    entity.timeSpanTicks, 
+                    entity.stopDate - TimeSpan.FromTicks(entity.timeSpanTicks),
+                    entity.stopDate);
+            }
+
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
     }

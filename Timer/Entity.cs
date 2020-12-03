@@ -13,6 +13,7 @@ namespace Timer
         public long timeSpanTicks { get; set; }
         public string programName { get; set; }
         
+
         public Entity()
         {
 
