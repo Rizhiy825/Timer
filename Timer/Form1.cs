@@ -29,9 +29,6 @@ namespace Timer
         private void Form1_Load(object sender, EventArgs e)
         {
             Serializer lastSession = new Serializer(entities);
-            lastSession.Read();
-
-
             StopWorkButton.Enabled = false;
 
             Task.Factory.StartNew(async () =>
@@ -98,13 +95,6 @@ namespace Timer
             stopwatch.Reset();
         }
 
-        private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
-        {
-            var selectedDate = Calendar.SelectionStart.Date;
-            DateSelectedLabel.Text = selectedDate.ToString("HH':'mm':'ss");
-        }
-
-
         private void ForegroundChanged(string name)
         {
             programName = name;
@@ -124,9 +114,13 @@ namespace Timer
                 {
                     ActiveWindowLabel.Text = programName;
                 });
-                
-
             }
+        }
+
+        private void NewForm2_Click(object sender, EventArgs e)
+        {
+            Form2 form = new Form2();
+            form.Show();
         }
     }
 }

@@ -39,7 +39,6 @@ namespace Timer
                 List<Entity> readEntities = (List<Entity>)xml.Deserialize(fs);
             }
         }
-
         
     }
 }

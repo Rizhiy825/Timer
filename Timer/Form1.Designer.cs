@@ -31,12 +31,10 @@
             this.ResultLabel = new System.Windows.Forms.Label();
             this.StopWorkButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
-            this.DateSelectedLabel = new System.Windows.Forms.Label();
             this.PauseButton = new System.Windows.Forms.Button();
-            this.Calendar = new System.Windows.Forms.MonthCalendar();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ActiveWindowLabel = new System.Windows.Forms.Label();
+            this.NewForm2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ResultLabel
@@ -77,17 +75,6 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // DateSelectedLabel
-            // 
-            this.DateSelectedLabel.AutoSize = true;
-            this.DateSelectedLabel.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DateSelectedLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.DateSelectedLabel.Location = new System.Drawing.Point(221, 402);
-            this.DateSelectedLabel.Name = "DateSelectedLabel";
-            this.DateSelectedLabel.Size = new System.Drawing.Size(155, 31);
-            this.DateSelectedLabel.TabIndex = 4;
-            this.DateSelectedLabel.Text = "выбери дату";
-            // 
             // PauseButton
             // 
             this.PauseButton.AutoSize = true;
@@ -101,32 +88,11 @@
             this.PauseButton.UseVisualStyleBackColor = true;
             this.PauseButton.Click += new System.EventHandler(this.PauseButton_Click);
             // 
-            // Calendar
-            // 
-            this.Calendar.BackColor = System.Drawing.SystemColors.Desktop;
-            this.Calendar.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Calendar.Location = new System.Drawing.Point(123, 174);
-            this.Calendar.MaxSelectionCount = 1;
-            this.Calendar.Name = "Calendar";
-            this.Calendar.TabIndex = 6;
-            this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(93, 402);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 31);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Результат:";
-            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Times New Roman", 15F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(20, 444);
+            this.label2.Location = new System.Drawing.Point(20, 181);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(405, 27);
             this.label2.TabIndex = 8;
@@ -137,25 +103,34 @@
             // 
             this.ActiveWindowLabel.Font = new System.Drawing.Font("Times New Roman", 15F);
             this.ActiveWindowLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.ActiveWindowLabel.Location = new System.Drawing.Point(15, 476);
+            this.ActiveWindowLabel.Location = new System.Drawing.Point(15, 213);
             this.ActiveWindowLabel.Name = "ActiveWindowLabel";
             this.ActiveWindowLabel.Size = new System.Drawing.Size(411, 80);
             this.ActiveWindowLabel.TabIndex = 9;
             this.ActiveWindowLabel.Text = "<не выбрано>";
             this.ActiveWindowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // NewForm2
+            // 
+            this.NewForm2.Font = new System.Drawing.Font("Times New Roman", 15F);
+            this.NewForm2.Location = new System.Drawing.Point(142, 296);
+            this.NewForm2.Name = "NewForm2";
+            this.NewForm2.Size = new System.Drawing.Size(161, 44);
+            this.NewForm2.TabIndex = 10;
+            this.NewForm2.Text = "Статистика";
+            this.NewForm2.UseVisualStyleBackColor = true;
+            this.NewForm2.Click += new System.EventHandler(this.NewForm2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ClientSize = new System.Drawing.Size(428, 565);
+            this.ClientSize = new System.Drawing.Size(440, 369);
+            this.Controls.Add(this.NewForm2);
             this.Controls.Add(this.ActiveWindowLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Calendar);
             this.Controls.Add(this.PauseButton);
-            this.Controls.Add(this.DateSelectedLabel);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.StopWorkButton);
             this.Controls.Add(this.ResultLabel);
@@ -174,12 +149,10 @@
         private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.Button StopWorkButton;
         private System.Windows.Forms.Button StartButton;
-        private System.Windows.Forms.Label DateSelectedLabel;
         private System.Windows.Forms.Button PauseButton;
-        private System.Windows.Forms.MonthCalendar Calendar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label ActiveWindowLabel;
+        private System.Windows.Forms.Button NewForm2;
     }
 }
 

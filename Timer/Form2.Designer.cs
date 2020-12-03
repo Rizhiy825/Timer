@@ -1,0 +1,115 @@
+﻿
+namespace Timer
+{
+    partial class Form2
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.Calendar = new System.Windows.Forms.MonthCalendar();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.programName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sessionTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sessionStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sessionStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // Calendar
+            // 
+            this.Calendar.Location = new System.Drawing.Point(358, 39);
+            this.Calendar.Name = "Calendar";
+            this.Calendar.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.programName,
+            this.sessionTime,
+            this.sessionStart,
+            this.sessionStop});
+            this.dataGridView1.Location = new System.Drawing.Point(189, 316);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 53;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(576, 196);
+            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // programName
+            // 
+            this.programName.HeaderText = "Название программы";
+            this.programName.MinimumWidth = 7;
+            this.programName.Name = "programName";
+            this.programName.Width = 130;
+            // 
+            // sessionTime
+            // 
+            this.sessionTime.HeaderText = "Время сессии";
+            this.sessionTime.MinimumWidth = 7;
+            this.sessionTime.Name = "sessionTime";
+            this.sessionTime.Width = 130;
+            // 
+            // sessionStart
+            // 
+            this.sessionStart.HeaderText = "Время начала сессии";
+            this.sessionStart.MinimumWidth = 7;
+            this.sessionStart.Name = "sessionStart";
+            this.sessionStart.Width = 130;
+            // 
+            // sessionStop
+            // 
+            this.sessionStop.HeaderText = "Время окончания сессии";
+            this.sessionStop.MinimumWidth = 7;
+            this.sessionStop.Name = "sessionStop";
+            this.sessionStop.Width = 130;
+            // 
+            // Form2
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(954, 596);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.Calendar);
+            this.Name = "Form2";
+            this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form2_Load_1);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.MonthCalendar Calendar;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn programName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sessionTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sessionStart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sessionStop;
+    }
+}
