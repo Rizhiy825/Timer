@@ -34,7 +34,7 @@ namespace Timer
         {
             XmlSerializer xml = new XmlSerializer(typeof(List<Entity>));
 
-            using (var fs = new FileStream("02.12.2020.xml", FileMode.OpenOrCreate))
+            using (var fs = new FileStream(logName + ".xml", FileMode.OpenOrCreate))
             {
                 List<Entity> readEntities = (List<Entity>)xml.Deserialize(fs);
             }
