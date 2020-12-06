@@ -12,6 +12,7 @@ namespace Timer
         public DateTime stopDate { get; set; }
         public long timeSpanTicks { get; set; }
         public string programName { get; set; }
+        public string category { get; set; }
         
 
         public Entity()
@@ -19,19 +20,18 @@ namespace Timer
 
         }
 
-        public Entity(DateTime stop, long span, string progName)
+        public Entity(DateTime stop, long span, string progName, string _category)
         {
             stopDate = stop;
             timeSpanTicks = span;
             programName = progName;
+            category = _category;
         }
 
         public void Clean()
         {
             stopDate = DateTime.MinValue;
             timeSpanTicks = 0;
-
-
         }
     }
 }

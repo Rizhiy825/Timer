@@ -31,6 +31,8 @@ namespace Timer
         {
             this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.Table = new System.Windows.Forms.DataGridView();
+            this.categoryStatistic = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sessionTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,7 +43,7 @@ namespace Timer
             // 
             // Calendar
             // 
-            this.Calendar.Location = new System.Drawing.Point(382, 50);
+            this.Calendar.Location = new System.Drawing.Point(84, 30);
             this.Calendar.Name = "Calendar";
             this.Calendar.TabIndex = 0;
             this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
@@ -55,54 +57,74 @@ namespace Timer
             this.sessionTime,
             this.sessionStart,
             this.sessionStop});
-            this.Table.Location = new System.Drawing.Point(147, 349);
+            this.Table.Location = new System.Drawing.Point(29, 278);
             this.Table.Name = "Table";
             this.Table.RowHeadersWidth = 53;
             this.Table.RowTemplate.Height = 24;
-            this.Table.Size = new System.Drawing.Size(706, 145);
+            this.Table.Size = new System.Drawing.Size(890, 271);
             this.Table.TabIndex = 1;
             this.Table.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // categoryStatistic
+            // 
+            this.categoryStatistic.FormattingEnabled = true;
+            this.categoryStatistic.Location = new System.Drawing.Point(587, 129);
+            this.categoryStatistic.Name = "categoryStatistic";
+            this.categoryStatistic.Size = new System.Drawing.Size(293, 24);
+            this.categoryStatistic.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 15F);
+            this.label1.Location = new System.Drawing.Point(352, 124);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(219, 29);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Выбери категорию:";
+            // 
             // Date
             // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Date.HeaderText = "Дата";
             this.Date.MinimumWidth = 7;
             this.Date.Name = "Date";
-            this.Date.Width = 130;
             // 
             // programName
             // 
+            this.programName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.programName.HeaderText = "Название программы";
             this.programName.MinimumWidth = 7;
             this.programName.Name = "programName";
-            this.programName.Width = 130;
             // 
             // sessionTime
             // 
+            this.sessionTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.sessionTime.HeaderText = "Время сессии";
             this.sessionTime.MinimumWidth = 7;
             this.sessionTime.Name = "sessionTime";
-            this.sessionTime.Width = 130;
             // 
             // sessionStart
             // 
+            this.sessionStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.sessionStart.HeaderText = "Время начала сессии";
             this.sessionStart.MinimumWidth = 7;
             this.sessionStart.Name = "sessionStart";
-            this.sessionStart.Width = 130;
             // 
             // sessionStop
             // 
+            this.sessionStop.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.sessionStop.HeaderText = "Время окончания сессии";
             this.sessionStop.MinimumWidth = 7;
             this.sessionStop.Name = "sessionStop";
-            this.sessionStop.Width = 130;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 596);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.categoryStatistic);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.Calendar);
             this.Name = "Form2";
@@ -110,6 +132,7 @@ namespace Timer
             this.Load += new System.EventHandler(this.Form2_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.Table)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,6 +140,8 @@ namespace Timer
 
         private System.Windows.Forms.MonthCalendar Calendar;
         private System.Windows.Forms.DataGridView Table;
+        private System.Windows.Forms.ComboBox categoryStatistic;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn programName;
         private System.Windows.Forms.DataGridViewTextBoxColumn sessionTime;

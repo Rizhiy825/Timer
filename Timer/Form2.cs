@@ -13,7 +13,9 @@ namespace Timer
 {
     public partial class Form2 : Form
     {
-        string[] filesName = Directory.GetFiles(@"C:\Users\User\source\repos\Rizhiy825\Timer\Timer\bin\Release", "*.xml");
+        string[] filesName = Directory.GetFiles(@".\", "*.xml");
+        List<DateTime> boldedDates = new List<DateTime>();
+        List<DateTime> fullDates = new List<DateTime>();
 
         public Form2()
         {
@@ -26,13 +28,16 @@ namespace Timer
             for (int i = 0; i < dates.Length; i++)
             {
                 dates[i] = DateTime.Parse(Path.GetFileNameWithoutExtension(filesName[i]));
+                boldedDates.Add(dates[i]);
             }
 
             Calendar.BoldedDates = dates;
         }
+
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            SelectionRange selectedRange = Calendar.SelectionRange;   /*.ToString("dd''.''MM''.''yyyy");*/
+            Table.Rows.Clear();
+            SelectionRange selectedRange = Calendar.SelectionRange;
             List<DateTime> datesList = new List<DateTime>();
             TimeSpan datesDif = selectedRange.End - selectedRange.Start;
            
@@ -43,13 +48,23 @@ namespace Timer
                 datesList.Add(selectedRange.Start.AddDays(1));
             }
 
-            var serializer = new Serializer();
-            serializer.selectedDates = datesList;
-            serializer.Read();
-
-            foreach (var entity in serializer.readedEntities)
+            foreach (var date in datesList)
             {
-                Table.Rows.Add(entity.stopDate.ToString("dd''.''MM''.'yyyy"),
+                for (int i = 0; i < boldedDates.Count; i++)
+                {
+                    if (date == boldedDates[i])
+                    {
+                        fullDates.Add(date);
+                    }
+                }
+            }
+
+            var serializer = new Serializer();
+            var entities = serializer.ReadEntities(fullDates);
+
+            foreach (var entity in entities)
+            {
+                Table.Rows.Add(entity.stopDate.ToString("dd.MM.yyyy"),
                     entity.programName, 
                     entity.timeSpanTicks, 
                     entity.stopDate - TimeSpan.FromTicks(entity.timeSpanTicks),
