@@ -9,14 +9,15 @@ using System.Xml.Serialization;
 
 namespace Timer
 {
-    class Serializer
+    class Serializer<Type>
     {
-        public List<DateTime> selectedDates { get; set; }
-        public List<Entity> readedEntities { get; private set; }
+        public List<string> selectedDates { get; set; }
+        public List<Type> readedEntities { get; private set; }
         public string fileName { get; set; }
-        public List<Entity> entities;
+        public List<Type> entities;
+        public string dateForm = "dd''.''MM''.''yyyy"; //как передать этот параметр из форм1?
 
-        public Serializer(List<Entity> _entites, string _fileName)
+        public Serializer(List<Type> _entites, string _fileName)
         {
             entities = _entites;
             fileName = _fileName;
@@ -24,14 +25,14 @@ namespace Timer
 
         public Serializer()
         {
-            selectedDates = new List<DateTime>();
-            readedEntities = new List<Entity>();
-            entities = new List<Entity>();
+            selectedDates = new List<string>();
+            readedEntities = new List<Type>();
+            entities = new List<Type>();
         }
 
         public void Write()
         {
-            XmlSerializer xml = new XmlSerializer(typeof(List<Entity>));
+            XmlSerializer xml = new XmlSerializer(typeof(List<Type>));
             using (var fs = new FileStream(fileName + ".xml", FileMode.OpenOrCreate))
             {
                 xml.Serialize(fs, entities);
@@ -40,18 +41,17 @@ namespace Timer
 
 
 
-        public List<Entity> ReadEntities(List<DateTime> datesList)
+        public List<Type> ReadEntities(List<string> datesList)
         {
 
             foreach (var date in datesList)
             {
-                var dateString = date.ToString("dd''.''MM''.''yyyy");
 
-                XmlSerializer xml = new XmlSerializer(typeof(List<Entity>));
+                XmlSerializer xml = new XmlSerializer(typeof(List<Type>));
 
-                using (var fs = new FileStream(dateString + ".xml", FileMode.Open))
+                using (var fs = new FileStream(date + ".xml", FileMode.Open))
                 {
-                    List<Entity> readEntities = (List<Entity>)xml.Deserialize(fs);
+                    List<Type> readEntities = (List<Type>)xml.Deserialize(fs);
                     readedEntities.AddRange(readEntities);
                     selectedDates.Add(date);
                 }

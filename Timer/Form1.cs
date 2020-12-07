@@ -21,7 +21,9 @@ namespace Timer
         private ActiveWindow aw;
         private string programName = "Timer";
         private string selectedCategory;
-       
+        public string dateForm = "dd''.''MM''.''yyyy";
+
+
 
         public Form1()
         {
@@ -32,10 +34,23 @@ namespace Timer
         {
             try
             {
-                var loadSerialization = new Serializer();
-                var dateNow = new List<DateTime>();
-                dateNow.Add(DateTime.Now);
-                entities = loadSerialization.ReadEntities(dateNow); 
+                var loadSerialization = new Serializer<Entity>();
+                var dateNow = new List<string>();
+                dateNow.Add(DateTime.Now.ToString(dateForm));
+                entities = loadSerialization.ReadEntities(dateNow);
+
+                var update = new Serializer<Categories>();
+                List<string> fileName = new List<string>();
+                fileName.Add("Categories");
+
+                List<Categories> categoriesList = new List<Categories>();
+                categoriesList = update.ReadEntities(fileName);
+
+                foreach (var category in categoriesList)
+                {
+                    categoriesBox.Items.Add(category.categoryName);
+                }
+
             }
             catch (FileNotFoundException)
             {
@@ -72,7 +87,7 @@ namespace Timer
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Serializer lastSession = new Serializer(entities, DateTime.Now.ToString("dd''.''MM''.''yyyy"));
+            Serializer<Entity> lastSession = new Serializer<Entity>(entities, DateTime.Now.ToString(dateForm));
             lastSession.Write();
             
             running = false;

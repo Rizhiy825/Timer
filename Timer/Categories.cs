@@ -9,16 +9,21 @@ using System.Xml.Serialization;
 namespace Timer
 {
     [Serializable]
-    class Categories
+    public class Categories
     {
-        private List<string> categoriesList { get; set; }
-        private string fileName = "Categories";
-        private string categoryName { get; set; }
+
+        public string fileName = "Categories";
+        public string categoryName { get; set; }
 
 
         public Categories(string category)
         {
             categoryName = category;
+        }
+
+        public Categories()
+        {
+
         }
     }
 }

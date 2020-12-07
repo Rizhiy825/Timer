@@ -15,7 +15,9 @@ namespace Timer
     {
         string[] filesName = Directory.GetFiles(@".\", "*.xml");
         List<DateTime> boldedDates = new List<DateTime>();
-        List<DateTime> fullDates = new List<DateTime>();
+        List<string> fullDates = new List<string>();
+
+        public string dateForm = "dd''.''MM''.''yyyy";
 
         public Form2()
         {
@@ -54,17 +56,17 @@ namespace Timer
                 {
                     if (date == boldedDates[i])
                     {
-                        fullDates.Add(date);
+                        fullDates.Add(date.ToString(dateForm));
                     }
                 }
             }
 
-            var serializer = new Serializer();
+            var serializer = new Serializer<Entity>();
             var entities = serializer.ReadEntities(fullDates);
 
             foreach (var entity in entities)
             {
-                Table.Rows.Add(entity.stopDate.ToString("dd.MM.yyyy"),
+                Table.Rows.Add(entity.stopDate.ToString(dateForm),
                     entity.programName, 
                     entity.timeSpanTicks, 
                     entity.stopDate - TimeSpan.FromTicks(entity.timeSpanTicks),
