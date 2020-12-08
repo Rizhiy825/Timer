@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Timer
 {
     [Serializable]
-    public class Entity
+    public class Session
     {
         public DateTime stopDate { get; set; }
         public long timeSpanTicks { get; set; }
@@ -15,12 +15,12 @@ namespace Timer
         public string category { get; set; }
         
 
-        public Entity()
+        public Session()
         {
 
         }
 
-        public Entity(DateTime stop, long span, string progName, string _category)
+        public Session(DateTime stop, long span, string progName, string _category)
         {
             stopDate = stop;
             timeSpanTicks = span;

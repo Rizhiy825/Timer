@@ -11,52 +11,42 @@ namespace Timer
 {
     class Serializer<Type>
     {
-        public List<string> selectedDates { get; set; }
-        public List<Type> readedEntities { get; private set; }
+        public List<string> selectedFiles { get; set; }
+        public List<Type> readedFilesEntity { get; private set; }
         public string fileName { get; set; }
         public List<Type> entities;
-        public string dateForm = "dd''.''MM''.''yyyy"; //как передать этот параметр из форм1?
 
-        public Serializer(List<Type> _entites, string _fileName)
+        public Serializer(List<Type> _entites, List<string> fileNameList)
         {
             entities = _entites;
-            fileName = _fileName;
-        }
-
-        public Serializer()
-        {
-            selectedDates = new List<string>();
-            readedEntities = new List<Type>();
-            entities = new List<Type>();
+            selectedFiles = fileNameList;
+            readedFilesEntity = new List<Type>();
         }
 
         public void Write()
         {
             XmlSerializer xml = new XmlSerializer(typeof(List<Type>));
-            using (var fs = new FileStream(fileName + ".xml", FileMode.OpenOrCreate))
+            using (var fs = new FileStream(selectedFiles.Last() + ".xml", FileMode.OpenOrCreate))
             {
                 xml.Serialize(fs, entities);
             }
+            
         }
 
-
-
-        public List<Type> ReadEntities(List<string> datesList)
+        public List<Type> ReadEntities()
         {
-
-            foreach (var date in datesList)
+            foreach (var file in selectedFiles)
             {
 
                 XmlSerializer xml = new XmlSerializer(typeof(List<Type>));
 
-                using (var fs = new FileStream(date + ".xml", FileMode.Open))
+                using (var fs = new FileStream(file + ".xml", FileMode.Open))
                 {
-                    List<Type> readEntities = (List<Type>)xml.Deserialize(fs);
-                    readedEntities.AddRange(readEntities);
-                    selectedDates.Add(date);
+                    List<Type> readFile = (List<Type>)xml.Deserialize(fs);
+                    readedFilesEntity.AddRange(readFile);
                 }
             }
-            return readedEntities;
+            return readedFilesEntity;
         }
     }
 }

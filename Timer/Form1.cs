@@ -17,9 +17,11 @@ namespace Timer
     {
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
-        private List<Entity> entities = new List<Entity>();
+        public List<Session> sessions = new List<Session>();
+        public List<string> categories = new List<string>();
         private ActiveWindow aw;
         private string programName = "Timer";
+        public string categoriesFileName = "Categories";
         private string selectedCategory;
         public string dateForm = "dd''.''MM''.''yyyy";
 
@@ -34,23 +36,19 @@ namespace Timer
         {
             try
             {
-                var loadSerialization = new Serializer<Entity>();
-                var dateNow = new List<string>();
-                dateNow.Add(DateTime.Now.ToString(dateForm));
-                entities = loadSerialization.ReadEntities(dateNow);
+                var dateNow = new List<string>() { DateTime.Now.ToString(dateForm) };
+                var loadSessionsSerialization = new Serializer<Session>(sessions, dateNow);
+                sessions = loadSessionsSerialization.ReadEntities();
 
-                var update = new Serializer<Categories>();
-                List<string> fileName = new List<string>();
-                fileName.Add("Categories");
+                List<string> fileName = new List<string>() { categoriesFileName };
+                var loadCategoriesSerialization = new Serializer<string>(categories, fileName);
 
-                List<Categories> categoriesList = new List<Categories>();
-                categoriesList = update.ReadEntities(fileName);
+                categories = loadCategoriesSerialization.ReadEntities();
 
-                foreach (var category in categoriesList)
+                foreach (var category in categories)
                 {
-                    categoriesBox.Items.Add(category.categoryName);
+                    categoriesBox.Items.Add(category);
                 }
-
             }
             catch (FileNotFoundException)
             {
@@ -87,7 +85,8 @@ namespace Timer
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Serializer<Entity> lastSession = new Serializer<Entity>(entities, DateTime.Now.ToString(dateForm));
+            var dateNow = new List<string>() { DateTime.Now.ToString(dateForm) };
+            Serializer<Session> lastSession = new Serializer<Session>(sessions, dateNow);
             lastSession.Write();
             
             running = false;
@@ -114,12 +113,12 @@ namespace Timer
         private void StopWorkButton_Click(object sender, EventArgs e)
         {
             stopwatch.Pause();
-            var entity = new Entity();
-            entity.stopDate = DateTime.Now;
-            entity.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
-            entity.programName = programName;
-            entity.category = selectedCategory;
-            entities.Add(entity);
+            var session = new Session();
+            session.stopDate = DateTime.Now;
+            session.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
+            session.programName = programName;
+            session.category = selectedCategory;
+            sessions.Add(session);
 
             StopWorkButton.Enabled = false;
             PauseButton.Enabled = false;
@@ -134,12 +133,12 @@ namespace Timer
             if (stopwatch.Running == true)
             {
                 stopwatch.Pause();
-                var entity = new Entity();
+                var entity = new Session();
                 entity.stopDate = DateTime.Now;
                 entity.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
                 entity.programName = programName;
                 entity.category = selectedCategory;
-                entities.Add(entity);
+                sessions.Add(entity);
                 stopwatch.ResetProgramElapsed();
                 stopwatch.Start();
 
@@ -149,13 +148,13 @@ namespace Timer
                 });
             }
             programName = name;
-
         }
 
         private void NewForm2_Click(object sender, EventArgs e)
         {
-            Form2 form = new Form2();
-            form.Show();
+            StatisticForm form = new StatisticForm();
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void categoriesBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,7 +163,13 @@ namespace Timer
 
             if (selectedCategory == "Добавить категорию")
             {
-                Form3 form = new Form3();
+                AddCategoryForm form = new AddCategoryForm();
+                form.Owner = this;
+                form.ShowDialog();
+            }
+            else if (selectedCategory == "Удалить категорию")
+            {
+                DeleteCategoryForm form = new DeleteCategoryForm();
                 form.Owner = this;
                 form.ShowDialog();
             }

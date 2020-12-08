@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace Timer
 {
-    public partial class Form3 : Form
+    public partial class AddCategoryForm : Form
     {
         public bool activity = true;
-        public Form3()
+        public AddCategoryForm()
         {
             InitializeComponent();
         }
@@ -24,31 +24,15 @@ namespace Timer
             Form1 main = this.Owner as Form1;
             if (main != null)
             {
-                var update = new Serializer<Categories>();
-                var newCategory = new Categories(addCategoryTextBox.Text);
-                List<string> fileName = new List<string>();
-                fileName.Add(newCategory.fileName);
-
-                List<Categories> categoriesList = new List<Categories>();
+                var manager = new CategoriesManager(main.dateForm, main.categoriesFileName);
                 
 
-                try
-                {
-                    categoriesList = update.ReadEntities(fileName);
-                }
-                catch (FileNotFoundException)
-                {
+                manager.AddCategory(addCategoryTextBox.Text);
 
-                }
-
-
-                categoriesList.Add(newCategory);
-                update.entities = categoriesList;
-                update.fileName = newCategory.fileName;
-                update.Write();
 
                 main.categoriesBox.Items.Insert(0, addCategoryTextBox.Text);
                 main.categoriesBox.SelectedIndex = 0;
+                main.categories.Add(addCategoryTextBox.Text);
                 Close();
             }
 
