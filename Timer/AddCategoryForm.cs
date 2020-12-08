@@ -30,9 +30,11 @@ namespace Timer
                 manager.AddCategory(addCategoryTextBox.Text);
 
 
+
+                var newCategory = new Categories(addCategoryTextBox.Text);
                 main.categoriesBox.Items.Insert(0, addCategoryTextBox.Text);
                 main.categoriesBox.SelectedIndex = 0;
-                main.categories.Add(addCategoryTextBox.Text);
+                main.categoriesList.Add(newCategory);
                 Close();
             }
 

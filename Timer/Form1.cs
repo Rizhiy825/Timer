@@ -18,7 +18,7 @@ namespace Timer
         private Stopwatch stopwatch = new Stopwatch();
         private bool running = true;
         public List<Session> sessions = new List<Session>();
-        public List<string> categories = new List<string>();
+        public List<Categories> categoriesList = new List<Categories>();
         private ActiveWindow aw;
         private string programName = "Timer";
         public string categoriesFileName = "Categories";
@@ -40,14 +40,14 @@ namespace Timer
                 var loadSessionsSerialization = new Serializer<Session>(sessions, dateNow);
                 sessions = loadSessionsSerialization.ReadEntities();
 
-                List<string> fileName = new List<string>() { categoriesFileName };
-                var loadCategoriesSerialization = new Serializer<string>(categories, fileName);
+                var categories = new CategoriesManager(dateForm, categoriesFileName);
+                categories.ReadCategories();
 
-                categories = loadCategoriesSerialization.ReadEntities();
 
-                foreach (var category in categories)
+                foreach (var category in categories.categoriesList)
                 {
-                    categoriesBox.Items.Add(category);
+                    categoriesList.Add(category);
+                    categoriesBox.Items.Add(category.categoryName);
                 }
             }
             catch (FileNotFoundException)
@@ -166,6 +166,7 @@ namespace Timer
                 AddCategoryForm form = new AddCategoryForm();
                 form.Owner = this;
                 form.ShowDialog();
+
             }
             else if (selectedCategory == "Удалить категорию")
             {
@@ -174,7 +175,12 @@ namespace Timer
                 form.ShowDialog();
             }
 
-            selectedCategory = categoriesBox.SelectedItem.ToString();
+            categoriesBox.Items.Clear();
+            foreach (var category in categoriesList)
+            {
+                categoriesBox.Items.Add(category.categoryName);
+            }
+
             StartButton.Enabled = true;
         }
     }

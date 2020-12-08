@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="ActiveWindow.cs" />
     <Compile Include="CategoriesManager.cs" />
+    <Compile Include="Categories.cs" />
     <Compile Include="DeleteCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>

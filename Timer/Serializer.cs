@@ -26,7 +26,8 @@ namespace Timer
         public void Write()
         {
             XmlSerializer xml = new XmlSerializer(typeof(List<Type>));
-            using (var fs = new FileStream(selectedFiles.Last() + ".xml", FileMode.OpenOrCreate))
+            var fileName = selectedFiles.Last();
+            using (var fs = new FileStream(fileName + ".xml", FileMode.Create))
             {
                 xml.Serialize(fs, entities);
             }
@@ -42,8 +43,16 @@ namespace Timer
 
                 using (var fs = new FileStream(file + ".xml", FileMode.Open))
                 {
-                    List<Type> readFile = (List<Type>)xml.Deserialize(fs);
-                    readedFilesEntity.AddRange(readFile);
+                    try
+                    {
+                        List<Type> readFile = (List<Type>)xml.Deserialize(fs);
+                        readedFilesEntity.AddRange(readFile);
+                    }
+                    catch (InvalidOperationException)
+                    {
+
+                    }
+                    
                 }
             }
             return readedFilesEntity;

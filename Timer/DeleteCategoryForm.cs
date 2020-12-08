@@ -21,9 +21,9 @@ namespace Timer
             Form1 main = this.Owner as Form1;
             if (main != null)
             {
-                foreach (var category in main.categories)
+                foreach (var category in main.categoriesList)
                 {
-                    CategoriesBox.Items.Add(category);
+                    CategoriesBox.Items.Add(category.categoryName);
                 }
             }
         }
@@ -34,11 +34,18 @@ namespace Timer
             if (main != null)
             {
                 var manager = new CategoriesManager(main.dateForm, main.categoriesFileName);
-                var selectedItem = CategoriesBox.SelectedItem.ToString(); 
+                var selectedItem = CategoriesBox.SelectedItem.ToString();
                 manager.DeleteCategory(selectedItem);
 
-                main.categoriesBox.Items.Remove(selectedItem);
-                main.categories.Remove(selectedItem);
+                foreach (var category in main.categoriesList)
+                {
+                    if (selectedItem == category.categoryName)
+                    {
+                        main.categoriesList.Remove(category);
+                        break;
+                    }
+                }
+
                 Close();
             }
         }

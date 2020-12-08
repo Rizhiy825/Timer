@@ -9,51 +9,46 @@ namespace Timer
 {
     class CategoriesManager
     {
-        public List<string> categoriesList;
+        public List<Categories> categoriesList;
         private string dateForm;
         private List<string> fileName;
 
         public CategoriesManager(string _dateForm, string _fileName)
         {
-            categoriesList = new List<string>();
+            categoriesList = new List<Categories>();
             dateForm = _dateForm;
             fileName = new List<string>() { _fileName };
         }
 
-        private void ReadCategories()
+        public void ReadCategories()
         {
-            var serializer = new Serializer<string>(categoriesList, fileName);
+            var serializer = new Serializer<Categories>(categoriesList, fileName);
             categoriesList = serializer.ReadEntities();
         }
 
         private void WriteCategories()
         {
-            var serializer = new Serializer<string>(categoriesList, fileName);
+            var serializer = new Serializer<Categories>(categoriesList, fileName);
             serializer.Write();
         }
 
         public void AddCategory(string newCategoryName)
         {
-            try
-            {
-                this.ReadCategories();
-                
-            }
-            catch (FileNotFoundException)
-            {
+            this.ReadCategories();
 
-            }
-
-            categoriesList.Add(newCategoryName);
+            var newCategory = new Categories(newCategoryName);
+            categoriesList.Add(newCategory);
             this.WriteCategories();
         }
 
         public void DeleteCategory(string deleteCategoryName)
         {
             this.ReadCategories();
+            var deleteCategory = new Categories(deleteCategoryName);
+
             foreach (var category in categoriesList)
             {
-                if (category == deleteCategoryName)
+                if (category.categoryName == deleteCategory.categoryName)
                 {
                     categoriesList.Remove(category);
                     break;
