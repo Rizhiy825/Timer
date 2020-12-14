@@ -18,6 +18,7 @@ namespace Timer
         }
         private void DeleteCategoryForm_Load(object sender, EventArgs e)
         {
+            DeleteCategoryButton.Enabled = false;
             Form1 main = this.Owner as Form1;
             if (main != null)
             {
@@ -35,13 +36,24 @@ namespace Timer
             {
                 var manager = new CategoriesManager(main.dateForm, main.categoriesFileName);
                 var selectedItem = CategoriesBox.SelectedItem.ToString();
-                manager.DeleteCategory(selectedItem);
+                var delCategory = new Categories(selectedItem);
+                manager.DeleteCategory(delCategory);
 
                 foreach (var category in main.categoriesList)
                 {
                     if (selectedItem == category.categoryName)
                     {
                         main.categoriesList.Remove(category);
+                        main.categoriesBox.Items.Remove(category.categoryName);
+
+                        if (main.categoriesBox.Items.Count != 2)
+                        {
+                            main.categoriesBox.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            main.categoriesBox.SelectedIndex = -1;
+                        }
                         break;
                     }
                 }
@@ -50,5 +62,9 @@ namespace Timer
             }
         }
 
+        private void CategoriesBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DeleteCategoryButton.Enabled = true;
+        }
     }
 }

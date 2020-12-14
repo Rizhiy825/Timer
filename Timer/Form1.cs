@@ -24,8 +24,8 @@ namespace Timer
         public string categoriesFileName = "Categories";
         private string selectedCategory;
         public string dateForm = "dd''.''MM''.''yyyy";
-
-
+        public string addCat = "Добавить категорию";
+        public string delCat = "Удалить категорию";
 
         public Form1()
         {
@@ -39,10 +39,16 @@ namespace Timer
                 var dateNow = new List<string>() { DateTime.Now.ToString(dateForm) };
                 var loadSessionsSerialization = new Serializer<Session>(sessions, dateNow);
                 sessions = loadSessionsSerialization.ReadEntities();
+            }
+            catch (FileNotFoundException)
+            {
 
+            }
+
+            try
+            {
                 var categories = new CategoriesManager(dateForm, categoriesFileName);
                 categories.ReadCategories();
-
 
                 foreach (var category in categories.categoriesList)
                 {
@@ -55,7 +61,8 @@ namespace Timer
 
             }
 
-            StopWorkButton.Enabled = false;
+            categoriesBox.Items.Add(addCat);
+            categoriesBox.Items.Add(delCat);
 
             Task.Factory.StartNew(async () =>
             {
@@ -161,27 +168,28 @@ namespace Timer
         {
             selectedCategory = categoriesBox.Text;
 
-            if (selectedCategory == "Добавить категорию")
+            if (selectedCategory == addCat)
             {
                 AddCategoryForm form = new AddCategoryForm();
                 form.Owner = this;
                 form.ShowDialog();
 
             }
-            else if (selectedCategory == "Удалить категорию")
+            else if (selectedCategory == delCat)
             {
                 DeleteCategoryForm form = new DeleteCategoryForm();
                 form.Owner = this;
                 form.ShowDialog();
             }
 
-            categoriesBox.Items.Clear();
-            foreach (var category in categoriesList)
+            if (selectedCategory == "" || selectedCategory == addCat || selectedCategory == delCat)
             {
-                categoriesBox.Items.Add(category.categoryName);
+                StartButton.Enabled = false;
             }
-
-            StartButton.Enabled = true;
+            else
+            {
+                StartButton.Enabled = true;
+            }
         }
     }
 }

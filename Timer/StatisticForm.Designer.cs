@@ -33,6 +33,7 @@ namespace Timer
             this.Table = new System.Windows.Forms.DataGridView();
             this.categoryStatistic = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sessionTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +53,7 @@ namespace Timer
             // 
             this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Table.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Category,
             this.Date,
             this.programName,
             this.sessionTime,
@@ -68,9 +70,9 @@ namespace Timer
             // categoryStatistic
             // 
             this.categoryStatistic.FormattingEnabled = true;
-            this.categoryStatistic.Location = new System.Drawing.Point(587, 129);
+            this.categoryStatistic.Location = new System.Drawing.Point(604, 129);
             this.categoryStatistic.Name = "categoryStatistic";
-            this.categoryStatistic.Size = new System.Drawing.Size(293, 24);
+            this.categoryStatistic.Size = new System.Drawing.Size(276, 24);
             this.categoryStatistic.TabIndex = 2;
             // 
             // label1
@@ -82,6 +84,13 @@ namespace Timer
             this.label1.Size = new System.Drawing.Size(219, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "Выбери категорию:";
+            // 
+            // Category
+            // 
+            this.Category.HeaderText = "Категория";
+            this.Category.MinimumWidth = 6;
+            this.Category.Name = "Category";
+            this.Category.Width = 125;
             // 
             // Date
             // 
@@ -118,7 +127,7 @@ namespace Timer
             this.sessionStop.MinimumWidth = 7;
             this.sessionStop.Name = "sessionStop";
             // 
-            // Form2
+            // StatisticForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,7 +136,7 @@ namespace Timer
             this.Controls.Add(this.categoryStatistic);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.Calendar);
-            this.Name = "Form2";
+            this.Name = "StatisticForm";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form2_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.Table)).EndInit();
@@ -142,6 +151,7 @@ namespace Timer
         private System.Windows.Forms.DataGridView Table;
         private System.Windows.Forms.ComboBox categoryStatistic;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn programName;
         private System.Windows.Forms.DataGridViewTextBoxColumn sessionTime;

@@ -40,7 +40,7 @@ namespace Timer
             this.label1.Font = new System.Drawing.Font("Times New Roman", 30F);
             this.label1.Location = new System.Drawing.Point(130, 67);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(478, 61);
+            this.label1.Size = new System.Drawing.Size(449, 57);
             this.label1.TabIndex = 1;
             this.label1.Text = "Удаление категории";
             // 
@@ -64,6 +64,7 @@ namespace Timer
             this.CategoriesBox.Size = new System.Drawing.Size(314, 37);
             this.CategoriesBox.TabIndex = 5;
             this.CategoriesBox.Text = "Выбери категорию";
+            this.CategoriesBox.SelectedIndexChanged += new System.EventHandler(this.CategoriesBox_SelectedIndexChanged);
             // 
             // DeleteCategoryForm
             // 

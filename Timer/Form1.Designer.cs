@@ -46,7 +46,7 @@
             this.ResultLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ResultLabel.Location = new System.Drawing.Point(132, 36);
             this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(217, 61);
+            this.ResultLabel.Size = new System.Drawing.Size(203, 57);
             this.ResultLabel.TabIndex = 0;
             this.ResultLabel.Text = "00:00:00";
             // 
@@ -126,9 +126,6 @@
             // categoriesBox
             // 
             this.categoriesBox.FormattingEnabled = true;
-            this.categoriesBox.Items.AddRange(new object[] {
-            "Добавить категорию",
-            "Удалить категорию"});
             this.categoriesBox.Location = new System.Drawing.Point(245, 137);
             this.categoriesBox.Name = "categoriesBox";
             this.categoriesBox.Size = new System.Drawing.Size(181, 24);
@@ -142,7 +139,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(20, 132);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(227, 31);
+            this.label1.Size = new System.Drawing.Size(210, 29);
             this.label1.TabIndex = 12;
             this.label1.Text = "Вид деятельности:";
             // 

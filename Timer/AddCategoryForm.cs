@@ -25,16 +25,11 @@ namespace Timer
             if (main != null)
             {
                 var manager = new CategoriesManager(main.dateForm, main.categoriesFileName);
-                
-
-                manager.AddCategory(addCategoryTextBox.Text);
-
-
-
                 var newCategory = new Categories(addCategoryTextBox.Text);
-                main.categoriesBox.Items.Insert(0, addCategoryTextBox.Text);
-                main.categoriesBox.SelectedIndex = 0;
+                manager.AddCategory(newCategory);
                 main.categoriesList.Add(newCategory);
+                main.categoriesBox.Items.Insert(0, newCategory.categoryName);
+                main.categoriesBox.SelectedItem = newCategory.categoryName;
                 Close();
             }
 

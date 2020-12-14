@@ -23,12 +23,32 @@ namespace Timer
         }
         private void Form2_Load_1(object sender, EventArgs e)
         {
+            categoryStatistic.Enabled = false;
+            /*Form1 main = this.Owner as Form1;
+            if (main != null)
+            {
+                foreach (var category in main.categoriesList)
+                {
+                    if (category.categoryName != main.addCat || category.categoryName != main.delCat)
+                    {
+                        categoryStatistic.Items.Add(category.categoryName);
+                    }
+                }
+            }*/
+
             DateTime[] dates = new DateTime[filesName.Length];
 
             for (int i = 0; i < dates.Length; i++)
             {
-                dates[i] = DateTime.Parse(Path.GetFileNameWithoutExtension(filesName[i]));
-                boldedDates.Add(dates[i]);
+                try
+                {
+                    dates[i] = DateTime.Parse(Path.GetFileNameWithoutExtension(filesName[i]));
+                    boldedDates.Add(dates[i]);
+                }
+                catch (FormatException)
+                {
+
+                }
             }
 
             Calendar.BoldedDates = dates;
@@ -36,6 +56,7 @@ namespace Timer
 
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
+            categoryStatistic.Enabled = true;
             Form1 main = this.Owner as Form1;
             if (main != null)
             {
@@ -65,14 +86,26 @@ namespace Timer
                 var serializer = new Serializer<Session>(main.sessions, fullDates);
                 var sessions = serializer.ReadEntities();
 
-                foreach (var serssion in sessions)
+                foreach (var session in sessions)
                 {
-                    Table.Rows.Add(serssion.stopDate.ToString(main.dateForm),
-                        serssion.programName,
-                        serssion.timeSpanTicks,
-                        serssion.stopDate - TimeSpan.FromTicks(serssion.timeSpanTicks),
-                        serssion.stopDate);
+                    Table.Rows.Add(session.category,
+                        session.stopDate.ToString(main.dateForm),
+                        session.programName,
+                        session.timeSpanTicks,
+                        session.stopDate - TimeSpan.FromTicks(session.timeSpanTicks),
+                        session.stopDate);
+                    
+                    foreach (var category in categoryStatistic.Items)
+                    {
+                        if (category.ToString() == session.category)
+                        {
+                            break;
+                        }
+
+                        categoryStatistic.Items.Add(session.category);
+                    }
                 }
+                
             }   
         }
 

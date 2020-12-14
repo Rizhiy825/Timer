@@ -19,6 +19,11 @@ namespace Timer
             dateForm = _dateForm;
             fileName = new List<string>() { _fileName };
         }
+        
+        public CategoriesManager()
+        {
+
+        }
 
         public void ReadCategories()
         {
@@ -32,19 +37,16 @@ namespace Timer
             serializer.Write();
         }
 
-        public void AddCategory(string newCategoryName)
+        public void AddCategory(Categories newCategory)
         {
             this.ReadCategories();
-
-            var newCategory = new Categories(newCategoryName);
             categoriesList.Add(newCategory);
             this.WriteCategories();
         }
 
-        public void DeleteCategory(string deleteCategoryName)
+        public void DeleteCategory(Categories deleteCategory)
         {
             this.ReadCategories();
-            var deleteCategory = new Categories(deleteCategoryName);
 
             foreach (var category in categoriesList)
             {
