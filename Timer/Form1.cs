@@ -122,7 +122,7 @@ namespace Timer
             stopwatch.Pause();
             var session = new Session();
             session.stopDate = DateTime.Now;
-            session.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
+            session.timeSpanTicks = stopwatch.programElapsed.Ticks;
             session.programName = programName;
             session.category = selectedCategory;
             sessions.Add(session);
@@ -142,7 +142,7 @@ namespace Timer
                 stopwatch.Pause();
                 var entity = new Session();
                 entity.stopDate = DateTime.Now;
-                entity.timeSpanTicks = stopwatch.programElapsed.Ticks/10000000;
+                entity.timeSpanTicks = stopwatch.programElapsed.Ticks;
                 entity.programName = programName;
                 entity.category = selectedCategory;
                 sessions.Add(entity);

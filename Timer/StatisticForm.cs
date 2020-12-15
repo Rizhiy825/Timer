@@ -61,6 +61,7 @@ namespace Timer
             if (main != null)
             {
                 Table.Rows.Clear();
+                categoryStatistic.Items.Clear();
                 SelectionRange selectedRange = Calendar.SelectionRange;
                 List<DateTime> datesList = new List<DateTime>();
                 TimeSpan datesDif = selectedRange.End - selectedRange.Start;
@@ -83,8 +84,10 @@ namespace Timer
                     }
                 }
 
+                datesList.Clear();
                 var serializer = new Serializer<Session>(main.sessions, fullDates);
                 var sessions = serializer.ReadEntities();
+                List<String> categoryCellList = new List<String>();
 
                 foreach (var session in sessions)
                 {
@@ -94,24 +97,63 @@ namespace Timer
                         session.timeSpanTicks,
                         session.stopDate - TimeSpan.FromTicks(session.timeSpanTicks),
                         session.stopDate);
-                    
-                    foreach (var category in categoryStatistic.Items)
-                    {
-                        if (category.ToString() == session.category)
-                        {
-                            break;
-                        }
 
-                        categoryStatistic.Items.Add(session.category);
+
+                    for (int i = 0; i < Table.Rows.Count; i++)
+                    {
+                        var p = Table[0, i].Value;
+
+                        if (p != null)
+                        {
+                            categoryCellList.Add(p.ToString());
+                        }
                     }
+
                 }
-                
-            }   
+
+                var distCategory = categoryCellList.Distinct();
+                foreach (var cat in distCategory)
+                {
+                    categoryStatistic.Items.Add(cat);
+                }
+
+                fullDates.Clear();
+
+            } 
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Table.Rows.Clear();
+        }
+
+        private void categoryStatistic_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedCat = categoryStatistic.SelectedItem.ToString();
+            TimeSpan sum = new TimeSpan() ;
+
+            for (int i = 0; i < Table.Rows.Count - 1; i++)
+            {
+                try
+                {
+                    if (Table[0, i].Value.ToString() == selectedCat)
+                    {
+                        var time = TimeSpan.FromTicks(Convert.ToInt64(Table[3, i].Value.ToString()));
+                        sum = sum.Add(time);
+                    }
+
+                }
+                catch (NullReferenceException)
+                {
+
+                }
+            }
+
+            SumResultLabel.Text = sum.ToString();
+        }
     }
 }
