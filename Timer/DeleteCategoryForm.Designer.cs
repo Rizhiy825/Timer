@@ -38,16 +38,19 @@ namespace Timer
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 30F);
-            this.label1.Location = new System.Drawing.Point(130, 67);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(108, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(449, 57);
+            this.label1.Size = new System.Drawing.Size(478, 61);
             this.label1.TabIndex = 1;
             this.label1.Text = "Удаление категории";
             // 
             // DeleteCategoryButton
             // 
+            this.DeleteCategoryButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DeleteCategoryButton.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.DeleteCategoryButton.Location = new System.Drawing.Point(402, 206);
+            this.DeleteCategoryButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DeleteCategoryButton.Location = new System.Drawing.Point(407, 118);
             this.DeleteCategoryButton.Name = "DeleteCategoryButton";
             this.DeleteCategoryButton.Size = new System.Drawing.Size(245, 37);
             this.DeleteCategoryButton.TabIndex = 4;
@@ -59,7 +62,7 @@ namespace Timer
             // 
             this.CategoriesBox.Font = new System.Drawing.Font("Times New Roman", 15F);
             this.CategoriesBox.FormattingEnabled = true;
-            this.CategoriesBox.Location = new System.Drawing.Point(42, 206);
+            this.CategoriesBox.Location = new System.Drawing.Point(47, 118);
             this.CategoriesBox.Name = "CategoriesBox";
             this.CategoriesBox.Size = new System.Drawing.Size(314, 37);
             this.CategoriesBox.TabIndex = 5;
@@ -70,12 +73,13 @@ namespace Timer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 277);
+            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.ClientSize = new System.Drawing.Size(694, 187);
             this.Controls.Add(this.CategoriesBox);
             this.Controls.Add(this.DeleteCategoryButton);
             this.Controls.Add(this.label1);
             this.Name = "DeleteCategoryForm";
-            this.Text = "Form2";
+            this.Text = "Удаление занятия";
             this.Load += new System.EventHandler(this.DeleteCategoryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

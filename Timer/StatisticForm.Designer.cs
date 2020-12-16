@@ -29,6 +29,9 @@ namespace Timer
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.Table = new System.Windows.Forms.DataGridView();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,7 +42,6 @@ namespace Timer
             this.sessionStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryStatistic = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.SumResultLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Table)).BeginInit();
@@ -54,6 +56,16 @@ namespace Timer
             // 
             // Table
             // 
+            this.Table.BackgroundColor = System.Drawing.SystemColors.Desktop;
+            this.Table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 8F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Purple;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Table.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Table.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Category,
@@ -62,11 +74,29 @@ namespace Timer
             this.sessionTime,
             this.sessionStart,
             this.sessionStop});
-            this.Table.Location = new System.Drawing.Point(29, 278);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 8F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Purple;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Table.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Table.EnableHeadersVisualStyles = false;
+            this.Table.Location = new System.Drawing.Point(26, 278);
             this.Table.Name = "Table";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 8F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Purple;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Table.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.Table.RowHeadersVisible = false;
             this.Table.RowHeadersWidth = 53;
             this.Table.RowTemplate.Height = 24;
-            this.Table.Size = new System.Drawing.Size(890, 271);
+            this.Table.Size = new System.Drawing.Size(898, 545);
             this.Table.TabIndex = 1;
             this.Table.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -115,7 +145,7 @@ namespace Timer
             // categoryStatistic
             // 
             this.categoryStatistic.FormattingEnabled = true;
-            this.categoryStatistic.Location = new System.Drawing.Point(604, 129);
+            this.categoryStatistic.Location = new System.Drawing.Point(562, 37);
             this.categoryStatistic.Name = "categoryStatistic";
             this.categoryStatistic.Size = new System.Drawing.Size(276, 24);
             this.categoryStatistic.TabIndex = 2;
@@ -125,27 +155,19 @@ namespace Timer
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.label1.Location = new System.Drawing.Point(352, 124);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(319, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(237, 31);
             this.label1.TabIndex = 3;
             this.label1.Text = "Выбери категорию:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(478, 211);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.label2.Location = new System.Drawing.Point(352, 174);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(319, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(358, 31);
             this.label2.TabIndex = 5;
@@ -155,26 +177,25 @@ namespace Timer
             // 
             this.SumResultLabel.AutoSize = true;
             this.SumResultLabel.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.SumResultLabel.Location = new System.Drawing.Point(752, 174);
+            this.SumResultLabel.Location = new System.Drawing.Point(687, 77);
             this.SumResultLabel.Name = "SumResultLabel";
-            this.SumResultLabel.Size = new System.Drawing.Size(82, 31);
+            this.SumResultLabel.Size = new System.Drawing.Size(0, 31);
             this.SumResultLabel.TabIndex = 6;
-            this.SumResultLabel.Text = "label3";
             // 
             // StatisticForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 596);
+            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.ClientSize = new System.Drawing.Size(952, 835);
             this.Controls.Add(this.SumResultLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.categoryStatistic);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.Calendar);
             this.Name = "StatisticForm";
-            this.Text = "Form3";
+            this.Text = "Статистика";
             this.Load += new System.EventHandler(this.Form2_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.Table)).EndInit();
             this.ResumeLayout(false);
@@ -194,7 +215,6 @@ namespace Timer
         private System.Windows.Forms.DataGridViewTextBoxColumn sessionTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn sessionStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn sessionStop;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label SumResultLabel;
     }

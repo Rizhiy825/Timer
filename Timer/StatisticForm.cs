@@ -94,7 +94,7 @@ namespace Timer
                     Table.Rows.Add(session.category,
                         session.stopDate.ToString(main.dateForm),
                         session.programName,
-                        session.timeSpanTicks,
+                        TimeSpan.FromTicks(session.timeSpanTicks).ToString(@"hh\:mm\:ss"),
                         session.stopDate - TimeSpan.FromTicks(session.timeSpanTicks),
                         session.stopDate);
 
@@ -142,7 +142,7 @@ namespace Timer
                 {
                     if (Table[0, i].Value.ToString() == selectedCat)
                     {
-                        var time = TimeSpan.FromTicks(Convert.ToInt64(Table[3, i].Value.ToString()));
+                        var time = TimeSpan.Parse(Table[3, i].Value.ToString());
                         sum = sum.Add(time);
                     }
 
@@ -153,7 +153,7 @@ namespace Timer
                 }
             }
 
-            SumResultLabel.Text = sum.ToString();
+            SumResultLabel.Text = sum.ToString(@"hh\:mm\:ss");
         }
     }
 }
